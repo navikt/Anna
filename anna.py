@@ -7,11 +7,11 @@ stoppord = ["hej", "nej"]
 
 class Anna:
     def hej(self):
-        fråga = inmatning(input())
-        if "bot" in fråga:
-            print("Jag är ingen bot! Jag är en väldigt, väldigt vacker tjej")
-        else:
-            print(slumpmassigtSvar())
+        # fråga = inmatning(input())
+        # if "bot" in fråga:
+        #     print("Jag är ingen bot! Jag är en väldigt, väldigt vacker tjej")
+        # else:
+        print(slumpmassigtSvar())
 
 
 def inmatning(text: str):

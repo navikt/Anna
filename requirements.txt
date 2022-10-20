@@ -1,2 +1,4 @@
 spacy~=3.4.1
 numpy~=1.23.3
+slack_sdk~=3.19.1
+schedule~=1.1.0
