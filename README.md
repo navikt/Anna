@@ -1,3 +1,9 @@
+# blah
+
+```
+docker build -t "navikt/anna:$(<VERSION)" .
+```
+
 # Anna
 
 Jag är ingen bot
