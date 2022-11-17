@@ -7,18 +7,21 @@ from slack_sdk.errors import SlackApiError
 
 logging.basicConfig(level=logging.DEBUG)
 
-def sendMessage(slack_client, msg):
+
+def sendMessage(slack_client, msg, thread_ts=None, channel='#faggruppe_nlp_anna'):
     # make the POST request through the python slack client
 
     # check if the request was a success
     try:
         slack_client.chat_postMessage(
-            channel='#faggruppe_nlp_anna',
-            text=msg
-        )#.get()
+            channel=channel,
+            text=msg,
+            thread_ts=thread_ts
+        )  # .get()
     except SlackApiError as e:
         logging.error('Request to Slack API Failed: {}.'.format(e.response.status_code))
         logging.error(e.response)
+
 
 if __name__ == "__main__":
     SLACK_BOT_TOKEN = os.environ['SLACK_BOT_TOKEN']

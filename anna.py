@@ -1,9 +1,5 @@
-import spacy
 import numpy as np
-
-nlp = spacy.load('sv_core_news_sm')
-stoppord = ["hej", "nej"]
-
+stoppord = ["anna", "bot"]
 
 class Anna:
     def hej(self):
@@ -11,8 +7,10 @@ class Anna:
         # if "bot" in fråga:
         #     print("Jag är ingen bot! Jag är en väldigt, väldigt vacker tjej")
         # else:
-        print(slumpmassigtSvar())
+        return slumpmassigtSvar()
 
+    def svarar(self, melding):
+        return rensare(melding) + slumpmassigtSvar()
 
 def inmatning(text: str):
     # todo rense teksten
@@ -24,7 +22,7 @@ def rensare(text: str):
     rensade_text = text.lower()
     # todo fjerne andre tegn en ?
     text_utan_stoppord = [ord.replace("?", "") for ord in rensade_text.split(" ") if ord not in stoppord]
-    return text_utan_stoppord
+    return " ".join(text_utan_stoppord)
 
 
 def slumpmassigtSvar():
