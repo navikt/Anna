@@ -22,20 +22,18 @@ def sendMessage(slack_client, msg, thread_ts=None, channel='#faggruppe_nlp_anna'
         logging.error('Request to Slack API Failed: {}.'.format(e.response.status_code))
         logging.error(e.response)
 
+def readLatestMessage(channel_id, slack_client, latest_ts = None):
+    # Store conversation history
+    conversation_history = []
 
-if __name__ == "__main__":
-    SLACK_BOT_TOKEN = os.environ['SLACK_BOT_TOKEN']
-    slack_client = WebClient(SLACK_BOT_TOKEN)
-    logging.debug("authorized slack client")
+    try:
+        # Call the conversations.history method using the WebClient
+        # conversations.history returns the first 100 messages by default
+        # These results are paginated, see: https://api.slack.com/methods/conversations.history$pagination
+        result = slack_client.conversations_history(channel=channel_id, limit=1, latest=latest_ts)
 
-    # # For testing
-    msg = "God eftermiddag!"
-    sendMessage(slack_client, msg)
-    # schedule.every(60).seconds.do(lambda: sendMessage(slack_client, msg))
+        conversation_history = result["messages"]
+        return conversation_history[0]
 
-    # schedule.every().monday.at("13:15").do(lambda: sendMessage(slack_client, msg))
-    # logging.info("entering loop")
-
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(5) # sleep for 5 seconds between checks on the scheduler
+    except SlackApiError as e:
+        pass

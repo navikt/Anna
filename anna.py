@@ -10,7 +10,7 @@ class Anna:
         return slumpmassigtSvar()
 
     def svarar(self, melding):
-        return rensare(melding) + slumpmassigtSvar()
+        return rensare(melding) + " " + slumpmassigtSvar()
 
 def inmatning(text: str):
     # todo rense teksten
