@@ -30,10 +30,11 @@ def readLatestMessage(channel_id, slack_client, latest_ts = None):
         # Call the conversations.history method using the WebClient
         # conversations.history returns the first 100 messages by default
         # These results are paginated, see: https://api.slack.com/methods/conversations.history$pagination
-        result = slack_client.conversations_history(channel=channel_id, limit=1, latest=latest_ts)
-
+        result = slack_client.conversations_history(channel=channel_id, limit=1, oldest=latest_ts)
         conversation_history = result["messages"]
-        return conversation_history[0]
+        if len(conversation_history) > 0:
+            return conversation_history[0]
+
 
     except SlackApiError as e:
         pass

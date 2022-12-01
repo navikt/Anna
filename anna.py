@@ -1,4 +1,9 @@
 import numpy as np
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+
+tokenizer = AutoTokenizer.from_pretrained("flax-community/nordic-gpt-wiki")
+model = AutoModelForCausalLM.from_pretrained("flax-community/nordic-gpt-wiki")
+generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
 stoppord = ["anna", "bot"]
 
 class Anna:
@@ -10,7 +15,12 @@ class Anna:
         return slumpmassigtSvar()
 
     def svarar(self, melding):
-        return rensare(melding) + " " + slumpmassigtSvar()
+        p = np.random.rand(1)
+        if p > 0.7:
+            return slumpmassigtSvar()
+        else:
+            svar = generator(melding, num_return_sequences=1, max_length = 100)[0]["generated_text"]
+            return " ".join(svar.split(".")[:-1])
 
 def inmatning(text: str):
     # todo rense teksten
